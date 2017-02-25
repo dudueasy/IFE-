@@ -8,6 +8,7 @@
 
 <body>
     <h3>城市列表</h3>
+    <ul id="cityList"></ul>
     <h3>污染城市列表</h3>
 
     <label for="index">空气质量大于：</label>
@@ -19,11 +20,6 @@
     </ul>
 
     <script>
-        var button = document.getElementById("button");
-
-        button.onclick = filterCities;
-
-
         var aqiData = [
             ["Beijing", 90],
             ["Shanghai", 50],
@@ -32,6 +28,20 @@
             ["Chengdu", 90],
             ["Xian", 100]
         ];
+
+        window.onload = function() {
+            for (i = 0; i < aqiData.length; i++) {
+                var data = aqiData[i];
+                var ul = document.getElementById("cityList");
+                var li = document.createElement("li");
+                li.innerHTML = data[0];
+                ul.appendChild(li);
+            }
+        }
+
+
+        var button = document.getElementById("button");
+        button.onclick = filterCities;
 
         function filterCities() {
             var ul = document.getElementById("aqi_list");
