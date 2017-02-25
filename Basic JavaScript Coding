@@ -7,25 +7,53 @@
 </head>
 
 <body>
-    <label for="">请输入北京今天空气质量：<input type="text" id="aqi_input" name="" value=""></label>
-    <button id="button">确认填写</button>
+    <h3>城市列表</h3>
+    <h3>污染城市列表</h3>
 
-    <div>您输入的值是:<span id="aqi_display">尚无录入</span></div>
+    <label for="index">空气质量大于：</label>
+    <input type="number" min="20" max="100" id="index">
+    <button id="button">筛选</button>
+
+    <ul id="aqi_list">
+
+    </ul>
 
     <script>
-        window.onload = function() {
-            var button = document.getElementById("button");
-            button.onclick = displayInput;
-        }
+        var button = document.getElementById("button");
 
-        function displayInput() {
-            var value = document.getElementById("aqi_input").value;
-            var display = document.getElementById("aqi_display");
-            display.innerHTML = value;
+        button.onclick = filterCities;
+
+
+        var aqiData = [
+            ["Beijing", 90],
+            ["Shanghai", 50],
+            ["Fuzhou", 10],
+            ["Guangzhou", 50],
+            ["Chengdu", 90],
+            ["Xian", 100]
+        ];
+
+        function filterCities() {
+            var ul = document.getElementById("aqi_list");
+            ul.innerHTML = "";
+            var index = document.getElementById("index").value;
+
+            //for loop 
+            for (i = 0; i < aqiData.length; i++) {
+                var array = aqiData[i];
+                if (array[1] > index) {
+                    showCity(array[0]);
+                }
+            }
+            //show cities that meet the judge condition
+            function showCity(cityName) {
+                var li = document.createElement("li");
+                li.innerHTML = cityName;
+                ul.appendChild(li);
+
+            }
         }
     </script>
-
-    </label>
 </body>
 
 </html>
