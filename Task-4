@@ -51,13 +51,21 @@
         // onclick event handler
         leftInButton.onclick = function() {
             var inputNumber = input.value;
-            numArray.unshift(inputNumber);
-            showNumber();
+            if (parseFloat(inputNumber)) {
+                numArray.unshift(inputNumber);
+                showNumber();
+            } else {
+                alert("please input number");
+            }
         }
         rightInButton.onclick = function() {
             var inputNumber = input.value;
-            numArray.push(inputNumber);
-            showNumber();
+            if (parseFloat(inputNumber)) {
+                numArray.push(inputNumber);
+                showNumber();
+            } else {
+                alert("please input number");
+            }
         }
 
         leftOutButton.onclick = function() {
