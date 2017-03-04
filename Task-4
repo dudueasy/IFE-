@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        div#container {
+            margin: 0 auto;
+            width: 500px;
+        }
+        
+        div#inputDiv {
+            margin: 20px 0;
+        }
+        
+        div#box span {
+            padding: 5px;
+            margin: 5px;
+            background-color: red;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="inputDiv">
+            <input type="number" id="input" placeholder="please input number">
+            <button id="left-in" type="">左侧入</button>
+            <button id="right-in">右侧入</button>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <button id="left-out" type="">左侧出</button>
+            <button id="right-out" type="">右侧出</button>
+        </div>
+        <div id="box">
+        </div>
+    </div>
+
+    <script>
+        var numArray = [];
+        var box = document.getElementById("box");
+        var leftInButton = document.getElementById("left-in");
+        var rightInButton = document.getElementById("right-in");
+        var leftOutButton = document.getElementById("left-out");
+        var rightOutButton = document.getElementById("right-out");
+        var input = document.getElementById("input");
+
+        // onclick event handler
+        leftInButton.onclick = function() {
+            var inputNumber = input.value;
+            numArray.unshift(inputNumber);
+            showNumber();
+        }
+        rightInButton.onclick = function() {
+            var inputNumber = input.value;
+            numArray.push(inputNumber);
+            showNumber();
+        }
+
+        leftOutButton.onclick = function() {
+            var inputNumber = input.value;
+            var deletedNumber = numArray.shift(inputNumber);
+            showNumber();
+            alert(deletedNumber);
+        }
+
+        rightOutButton.onclick = function() {
+                var inputNumber = input.value;
+                var deletedNumber = numArray.pop(inputNumber);
+                showNumber();
+                alert(deletedNumber);
+            }
+            //conclick event handler end 
+
+        // click to delete function
+        function deleteNum(e) {
+            var id = e.target.id;
+            numArray.splice(id, 1);
+            showNumber();
+        }
+
+
+        //showNumber 
+        function showNumber() {
+            box.innerHTML = "";
+            for (var i = 0; i < numArray.length; i++) {
+                var index = i;
+                var span = document.createElement("span");
+                var value = numArray[i];
+                span.innerHTML = value;
+                span.setAttribute("id", index);
+                box.appendChild(span);
+                span.onclick = deleteNum;
+            }
+        }
+    </script>
+</body>
+
+</html>
