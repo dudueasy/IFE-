@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        div#container {
+            margin: 0 auto;
+            width: 500px;
+        }
+        
+        div#inputDiv {
+            margin: 20px 0;
+        }
+        
+        div#box {
+            height: 200px;
+            position: absolute;
+            top: 100px;
+        }
+        
+        div#box span {
+            width: 10px;
+            padding: 5px;
+            margin: 40px 5px 0px;
+            background-color: red;
+            text-align: center;
+            color: white;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="inputDiv">
+            <input type="number" id="input" placeholder="please input number" min="10" max="100" onblur=validateNumber()>
+            <button id="left-in" type="">左侧入</button>
+            <button id="right-in">右侧入</button>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <button id="left-out" type="">左侧出</button>
+            <button id="right-out" type="">右侧出</button>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+            <button id="sort" onclick=sort()>排序</button>
+
+        </div>
+        <div id="box">
+        </div>
+    </div>
+
+    <script>
+        var numArray = [];
+        var box = document.getElementById("box");
+        var leftInButton = document.getElementById("left-in");
+        var rightInButton = document.getElementById("right-in");
+        var leftOutButton = document.getElementById("left-out");
+        var rightOutButton = document.getElementById("right-out");
+        var input = document.getElementById("input");
+        // onblur event handler
+
+        function validateNumber() {
+            //validate Number value begins
+            var inputNumber = input.value;
+            if (inputNumber > 100) {
+                input.focus;
+                alert("number is between 10 to 100");
+                input.value = 100;
+
+
+
+            } else if (inputNumber < 10) {
+                alert("number is between 10 to 100")
+                input.focus;
+                input.value = 10;
+
+            }
+            //validate Number value ends
+
+
+
+        }
+
+        function validateLength() {
+            if (!input.value == "") {
+                if (numArray.length >= 60) {
+                    alert("max quantity reached");
+                    input.value = "";
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+        }
+
+        // onclick event handler
+        leftInButton.onclick = function() {
+            var inputNumber = input.value;
+            if (validateLength() == true) {
+                if (parseFloat(inputNumber)) {
+                    numArray.unshift(inputNumber);
+                    showNumber();
+                } else {
+                    alert("please input number");
+                }
+            }
+        }
+        rightInButton.onclick = function() {
+            var inputNumber = input.value;
+            if (validateLength() == true) {
+                if (parseFloat(inputNumber)) {
+                    numArray.push(inputNumber);
+                    showNumber();
+                } else {
+                    alert("please input number");
+                }
+            }
+        }
+
+        leftOutButton.onclick = function() {
+            var inputNumber = input.value;
+            if (validateLength() == true) {
+                var deletedNumber = numArray.shift(inputNumber);
+                showNumber();
+                alert(deletedNumber);
+            }
+        }
+
+        rightOutButton.onclick = function() {
+                var inputNumber = input.value;
+                if (validateLength() == true) {
+                    var deletedNumber = numArray.pop(inputNumber);
+                    showNumber();
+                    alert(deletedNumber);
+                }
+            }
+            //conclick event handler end 
+
+        // click to delete function
+        function deleteNum(e) {
+            var id = e.target.id;
+            numArray.splice(id, 1);
+            showNumber();
+        }
+
+        function sort() {
+            numArray.sort(function(a, b) {
+                return a - b;
+            })
+            showNumber();
+
+
+        }
+
+        //showNumber 
+        function showNumber() {
+            box.innerHTML = "";
+            for (var i = 0; i < numArray.length; i++) {
+                var index = i;
+                var span = document.createElement("span");
+                var value = numArray[i];
+                span.setAttribute("id", index);
+                span.style.height = parseFloat(value) + "px";
+                // span.style.transform = "translateY" + "(" + (100 - value + "px") + ")";
+                box.appendChild(span);
+                span.onclick = deleteNum;
+            }
+        }
+    </script>
+</body>
+
+</html>
